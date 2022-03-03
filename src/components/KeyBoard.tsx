@@ -18,12 +18,18 @@ const KeyBoard = () => {
     submitLine,
     currentLine,
     answer,
+    gameEnded,
   } = useContext(GameContext);
 
   const { bgNavbarColor } = useContext(LightModeContext);
 
   useEffect(() => {
+    if (gameEnded) {
+      return;
+    }
     function handleKeyDown(event: any) {
+      (document.activeElement as HTMLElement).blur();
+
       const key = event.key.toUpperCase();
 
       let keyIsValid = false;
@@ -56,7 +62,15 @@ const KeyBoard = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [game, currentLine, answer, addCharacter, submitLine, deleteCharacter]);
+  }, [
+    game,
+    currentLine,
+    answer,
+    addCharacter,
+    submitLine,
+    deleteCharacter,
+    gameEnded,
+  ]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,6 +83,9 @@ const KeyBoard = () => {
                 key={index}
                 letter={letter}
                 onClick={() => {
+                  if (gameEnded) {
+                    return;
+                  }
                   addCharacter(letter);
                 }}
               />
@@ -83,6 +100,9 @@ const KeyBoard = () => {
                 key={index}
                 letter={letter}
                 onClick={() => {
+                  if (gameEnded) {
+                    return;
+                  }
                   addCharacter(letter);
                 }}
               />
@@ -98,6 +118,9 @@ const KeyBoard = () => {
                   key={index}
                   icon={<BackspaceIcon className="w-5 mx-auto" />}
                   onClick={() => {
+                    if (gameEnded) {
+                      return;
+                    }
                     deleteCharacter();
                   }}
                 />
@@ -110,6 +133,9 @@ const KeyBoard = () => {
                   key={index}
                   icon={<CheckCircleIcon className="w-5 mx-auto" />}
                   onClick={() => {
+                    if (gameEnded) {
+                      return;
+                    }
                     submitLine();
                   }}
                 />
@@ -121,6 +147,9 @@ const KeyBoard = () => {
                 key={index}
                 letter={letter}
                 onClick={() => {
+                  if (gameEnded) {
+                    return;
+                  }
                   addCharacter(letter);
                 }}
               />

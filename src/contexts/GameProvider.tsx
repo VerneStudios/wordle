@@ -155,20 +155,18 @@ const GameProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   function checkIfWin() {
-    if (answers.length !== 5) {
+    const answer = answers[currentLine];
+
+    if (!answer) {
       return;
     }
 
-    for (let i = 0; i < answers.length; i++) {
-      const answer = answers[i];
-      if (answer.includes(1) || answer.includes(0)) {
-        endGame();
-        return;
-      }
+    if (answer.includes(1) || answer.includes(0)) {
+      return;
     }
+
     win();
     endGame();
-
     return;
   }
 
