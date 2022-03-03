@@ -25,6 +25,7 @@ class CookiesManager {
 
   getCookies() {
     const cookiesArray: string[] = document.cookie.split(";");
+
     const cookies = cookiesArray.map((cookie) => {
       const [name, value] = cookie.split("=");
 
